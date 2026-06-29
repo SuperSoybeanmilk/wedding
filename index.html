@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Z & L Wedding Invitation</title>
+  </head>
+  <body>
+    <main class="swiper wedding-swiper">
+      <div class="swiper-wrapper">
+        <section class="swiper-slide cover-slide">
+          <div class="cover-bg" data-swiper-parallax="-24%"></div>
+          <div class="cover-vignette"></div>
+          <div class="cover-content" data-swiper-parallax="-180">
+            <p class="eyebrow">Wedding Invitation</p>
+            <h1>Z & L</h1>
+            <div class="typed-line">
+              <span id="typed-cover"></span>
+            </div>
+            <p class="date">2026.10.01</p>
+          </div>
+          <div class="scroll-hint" aria-hidden="true">
+            <span></span>
+          </div>
+        </section>
+
+        <section class="swiper-slide story-slide">
+          <div class="slide-bg" data-swiper-parallax="-18%"></div>
+          <div class="content-grid">
+            <figure class="photo-stack" data-swiper-parallax="-120">
+              <img src="/src/assets/1.jpg" alt="新人的照片">
+              <figcaption>Our Story</figcaption>
+            </figure>
+            <article class="copy-block" data-swiper-parallax="-260">
+              <p class="section-index">01</p>
+              <h2>初见</h2>
+              <p id="typed-story"></p>
+            </article>
+          </div>
+        </section>
+
+        <section class="swiper-slide gallery-slide">
+          <div class="slide-bg light-bg" data-swiper-parallax="-18%"></div>
+          <div class="gallery-layout">
+            <article class="copy-block" data-swiper-parallax="-220">
+              <p class="section-index">02</p>
+              <h2>同行</h2>
+              <p id="typed-gallery"></p>
+            </article>
+            <div class="photo-collage" data-swiper-parallax="-120">
+              <img class="photo-main" src="/src/assets/2.png" alt="婚礼照片">
+              <img class="photo-side" src="/src/assets/3.jpg" alt="婚礼照片">
+            </div>
+          </div>
+        </section>
+
+        <section class="swiper-slide details-slide">
+          <div class="details-bg" data-swiper-parallax="-16%"></div>
+          <div class="details-content" data-swiper-parallax="-220">
+            <p class="eyebrow">Save The Date</p>
+            <h2>诚邀您见证我们的婚礼</h2>
+            <div class="detail-list">
+              <p><span>时间</span>2026 年 10 月 1 日 18:00</p>
+              <p><span>地点</span>XX 酒店顶层宴会厅</p>
+              <p><span>新人</span>Z & L</p>
+            </div>
+          </div>
+        </section>
+      </div>
+      <div class="swiper-pagination"></div>
+    </main>
+
+    <aside class="music-widget" data-playlist-id="3778678">
+      <button class="music-toggle" type="button" aria-label="打开背景音乐" aria-expanded="false" aria-controls="music-panel">
+        <span class="music-preview">
+          <img src="/src/assets/1.jpg" alt="">
+          <span class="music-play-icon" aria-hidden="true"></span>
+        </span>
+        <span class="music-tab" aria-hidden="true"></span>
+      </button>
+      <div class="music-panel" id="music-panel" hidden>
+        <button class="music-close" type="button" aria-label="收起背景音乐"></button>
+        <div class="music-panel-head">
+          <span>网易云歌单</span>
+          <small>点击播放器开始播放</small>
+        </div>
+        <iframe
+          class="music-frame"
+          title="网易云音乐歌单播放器"
+          loading="lazy"
+          allow="autoplay; encrypted-media"
+        ></iframe>
+      </div>
+    </aside>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
