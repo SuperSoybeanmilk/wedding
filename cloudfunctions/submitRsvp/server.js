@@ -7,15 +7,8 @@ const app = cloudbase.init({
 
 const db = app.database()
 
-const corsHeaders = {
-  'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'Content-Type',
-  'Access-Control-Allow-Methods': 'POST,OPTIONS',
-}
-
 function sendJson(res, statusCode, body) {
   res.writeHead(statusCode, {
-    ...corsHeaders,
     'Content-Type': 'application/json; charset=utf-8',
   })
   res.end(JSON.stringify(body))
@@ -40,7 +33,7 @@ function readBody(req) {
 
 const server = http.createServer(async (req, res) => {
   if (req.method === 'OPTIONS') {
-    res.writeHead(204, corsHeaders)
+    res.writeHead(204)
     res.end()
     return
   }
