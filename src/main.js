@@ -54,18 +54,42 @@ function setupMusicPlayer() {
   const close = widget.querySelector('.music-close')
   const panel = widget.querySelector('.music-panel')
   const frame = widget.querySelector('.music-frame')
+  const empty = widget.querySelector('.music-empty')
+  const provider = widget.dataset.provider || 'netease'
+  const playerType = widget.dataset.playerType || '0'
+  const mediaId = widget.dataset.mediaId || widget.dataset.playlistId || '3778678'
   const playlistId = widget.dataset.playlistId || '3778678'
+  const configuredSrc = widget.dataset.playerSrc || frame.dataset.src || frame.getAttribute('src') || ''
+  const playerSrc =
+    configuredSrc ||
+    (provider === 'qq'
+      ? ''
+      : `https://music.163.com/outchain/player?type=${encodeURIComponent(playerType)}&id=${encodeURIComponent(mediaId || playlistId)}&auto=1&height=90`)
   let isLoaded = false
+
+  function loadPlayer() {
+    if (isLoaded) return true
+
+    if (!playerSrc) {
+      if (empty) empty.hidden = false
+      frame.hidden = true
+      console.warn('音乐播放器缺少可用地址，请检查 data-player-src 或 data-playlist-id。')
+      return false
+    }
+
+    if (empty) empty.hidden = true
+    frame.hidden = false
+    frame.src = playerSrc
+    isLoaded = true
+    return true
+  }
 
   function setOpen(isOpen) {
     widget.classList.toggle('is-open', isOpen)
     toggle.setAttribute('aria-expanded', String(isOpen))
     panel.hidden = !isOpen
 
-    if (isOpen && !isLoaded) {
-      frame.src = `https://music.163.com/outchain/player?type=0&id=${encodeURIComponent(playlistId)}&auto=0&height=90`
-      isLoaded = true
-    }
+    if (isOpen) loadPlayer()
   }
 
   toggle.addEventListener('click', () => {
@@ -73,6 +97,7 @@ function setupMusicPlayer() {
   })
 
   close.addEventListener('click', () => setOpen(false))
+  loadPlayer()
 }
 
 new Swiper('.wedding-swiper', {

@@ -192,6 +192,7 @@ img {
 .photo-stack {
   position: relative;
   width: min(72vw, 1040px);
+  aspect-ratio: 3 / 4;
   justify-self: end;
   opacity: 0;
   transform: translate3d(-34px, 0, 0) scale(1.035);
@@ -204,18 +205,27 @@ img {
   content: "";
 }
 
-.photo-stack img,
+.photo-stack picture,
 .photo-main,
 .photo-side {
   width: 100%;
-  object-fit: cover;
   box-shadow: var(--shadow);
 }
 
-.photo-stack img {
+.photo-stack picture {
+  display: block;
   position: relative;
-  height: min(90vh, 900px);
+  width: 100%;
+  height: 100%;
   border: 10px solid #fff;
+}
+
+.photo-stack img,
+.photo-main img,
+.photo-side img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .photo-stack figcaption {
@@ -268,26 +278,31 @@ img {
 .photo-collage {
   position: relative;
   width: min(73vw, 1060px);
-  min-height: min(90vh, 900px);
+  aspect-ratio: 4 / 3;
+  min-height: 0;
   opacity: 0;
   transform: translate3d(34px, 0, 0) scale(1.035);
 }
 
 .photo-main {
   position: absolute;
+  display: block;
   right: 0;
   top: 0;
   width: 84%;
-  height: min(88vh, 860px);
+  aspect-ratio: 4 / 3;
+  height: auto;
   border: 10px solid #fff;
 }
 
 .photo-side {
   position: absolute;
+  display: block;
   left: -2vw;
   bottom: 4vh;
   width: 40%;
-  height: min(48vh, 480px);
+  aspect-ratio: 4 / 3;
+  height: auto;
   border: 8px solid #fff;
   filter: brightness(1.04);
 }
@@ -562,6 +577,13 @@ img {
   border-bottom: 2px solid rgba(50, 50, 50, 0.56);
   content: "";
   transform: translate(-60%, -50%) rotate(-45deg);
+  transition: transform 240ms ease;
+}
+
+.music-widget:hover .music-tab::before,
+.music-toggle:hover .music-tab::before,
+.music-toggle:focus-visible .music-tab::before {
+  transform: translate(-40%, -50%) rotate(135deg);
 }
 
 .music-panel {
@@ -569,7 +591,7 @@ img {
   right: 0;
   bottom: 0;
   display: grid;
-  width: min(420px, calc(100vw - 18px));
+  width: min(360px, calc(100vw - 18px));
   grid-template-columns: minmax(0, 1fr) 28px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.86);
@@ -587,7 +609,7 @@ img {
 .music-close {
   grid-column: 2;
   grid-row: 1 / span 2;
-  height: 154px;
+  height: 136px;
   padding: 0;
   border: 0;
   cursor: pointer;
@@ -603,7 +625,7 @@ img {
   align-items: baseline;
   justify-content: space-between;
   gap: 16px;
-  padding: 12px 14px 8px;
+  padding: 10px 12px 6px;
   color: var(--ink);
 }
 
@@ -620,8 +642,25 @@ img {
   grid-column: 1;
   display: block;
   width: 100%;
-  height: 110px;
+  height: 118px;
   border: 0;
+}
+
+.music-frame[hidden] {
+  display: none;
+}
+
+.music-empty {
+  grid-column: 1;
+  margin: 0;
+  padding: 36px 14px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  text-align: center;
+}
+
+.music-empty[hidden] {
+  display: none;
 }
 
 @keyframes music-panel-in {
@@ -653,7 +692,7 @@ img {
   }
 
   .photo-stack {
-    width: min(96vw, 520px);
+    width: min(78vw, 360px);
     justify-self: center;
   }
 
@@ -661,8 +700,7 @@ img {
     inset: 9px -9px -9px 9px;
   }
 
-  .photo-stack img {
-    height: min(68vh, 680px);
+  .photo-stack picture {
     border-width: 7px;
   }
 
@@ -685,13 +723,12 @@ img {
 
   .photo-collage {
     order: -1;
-    width: min(98vw, 560px);
-    min-height: min(66vh, 660px);
+    width: min(88vw, 430px);
+    min-height: 0;
   }
 
   .photo-main {
     width: 86%;
-    height: min(64vh, 620px);
     border-width: 7px;
   }
 
@@ -699,7 +736,6 @@ img {
     left: 0;
     bottom: 3vh;
     width: 44%;
-    height: min(34vh, 330px);
     border-width: 6px;
   }
 
@@ -756,6 +792,11 @@ img {
   }
 
   .music-close {
-    height: 154px;
+    height: 132px;
   }
+
+  .music-frame {
+    height: 116px;
+  }
+
 }
