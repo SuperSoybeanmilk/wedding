@@ -100,6 +100,60 @@ function setupMusicPlayer() {
   loadPlayer()
 }
 
+function setupRsvpForm() {
+  const form = document.querySelector('.rsvp-form')
+  if (!form) return
+
+  const message = form.querySelector('.rsvp-message')
+  const submitButton = form.querySelector('button[type="submit"]')
+  const apiUrl = form.dataset.apiUrl?.trim()
+
+  function setMessage(text) {
+    if (message) message.textContent = text
+  }
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault()
+
+    const formData = new FormData(form)
+    const name = String(formData.get('name') || '').trim()
+    const phone = String(formData.get('phone') || '').trim()
+
+    if (!name || !phone) {
+      setMessage('请填写姓名和电话。')
+      return
+    }
+
+    if (!apiUrl) {
+      setMessage('请先配置 CloudBase 云函数 HTTP 地址。')
+      return
+    }
+
+    submitButton.disabled = true
+    setMessage('正在提交...')
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, phone }),
+      })
+
+      if (!response.ok) throw new Error(`HTTP ${response.status}`)
+
+      form.reset()
+      setMessage('已收到您的回执，谢谢。')
+    } catch (error) {
+      console.error(error)
+      setMessage('提交失败，请稍后再试。')
+    } finally {
+      submitButton.disabled = false
+    }
+  })
+}
+
 new Swiper('.wedding-swiper', {
   direction: 'vertical',
   modules: [EffectFade, Mousewheel, Pagination, Parallax],
@@ -129,3 +183,4 @@ new Swiper('.wedding-swiper', {
 })
 
 setupMusicPlayer()
+setupRsvpForm()
