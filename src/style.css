@@ -931,6 +931,86 @@ img {
   text-align: center;
 }
 
+.rsvp-success-dialog {
+  position: fixed;
+  z-index: 10000;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(24, 22, 22, 0.38);
+  backdrop-filter: blur(7px);
+  animation: rsvp-dialog-in 280ms ease-out both;
+}
+
+.rsvp-success-card {
+  width: min(390px, 100%);
+  padding: 34px 28px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 22px 70px rgba(30, 24, 24, 0.22);
+  color: var(--ink);
+  text-align: center;
+  animation: rsvp-card-in 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.rsvp-success-mark {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 18px;
+  border: 1px solid rgba(37, 37, 37, 0.22);
+  border-radius: 50%;
+  font-family: Arial, sans-serif;
+  font-size: 1.35rem;
+}
+
+.rsvp-success-card h3 {
+  margin: 0 0 12px;
+  font-size: 1.4rem;
+  letter-spacing: 0;
+}
+
+.rsvp-success-card p {
+  margin: 0;
+  color: #555;
+  font-family: "Microsoft YaHei", Arial, sans-serif;
+  font-size: 1rem;
+  line-height: 1.9;
+  letter-spacing: 0;
+}
+
+.rsvp-success-card button {
+  width: 100%;
+  height: 42px;
+  margin-top: 24px;
+  border: 0;
+  background: rgba(37, 37, 37, 0.92);
+  color: #fff;
+  cursor: pointer;
+  font: 0.92rem "Microsoft YaHei", Arial, sans-serif;
+}
+
+.rsvp-success-dialog.is-closing {
+  animation: rsvp-dialog-out 260ms ease-in both;
+}
+
+@keyframes rsvp-dialog-in {
+  from { opacity: 0; }
+}
+
+@keyframes rsvp-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px) scale(0.97);
+  }
+}
+
+@keyframes rsvp-dialog-out {
+  to { opacity: 0; }
+}
+
 .swiper-pagination {
   right: 18px !important;
 }

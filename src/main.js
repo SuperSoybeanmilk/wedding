@@ -129,6 +129,37 @@ function setupMusicPlayer() {
   return activatePlayback
 }
 
+function showRsvpSuccess() {
+  const existingDialog = document.querySelector('.rsvp-success-dialog')
+  if (existingDialog) existingDialog.remove()
+
+  const dialog = document.createElement('div')
+  dialog.className = 'rsvp-success-dialog'
+  dialog.setAttribute('role', 'dialog')
+  dialog.setAttribute('aria-modal', 'true')
+  dialog.setAttribute('aria-labelledby', 'rsvp-success-title')
+  dialog.innerHTML = `
+    <div class="rsvp-success-card">
+      <span class="rsvp-success-mark" aria-hidden="true">✓</span>
+      <h3 id="rsvp-success-title">提交成功</h3>
+      <p>已经收到您提交的回执<br>期待您的到来</p>
+      <button type="button">好的</button>
+    </div>
+  `
+
+  function closeDialog() {
+    dialog.classList.add('is-closing')
+    window.setTimeout(() => dialog.remove(), 260)
+  }
+
+  dialog.addEventListener('click', (event) => {
+    if (event.target === dialog) closeDialog()
+  })
+  dialog.querySelector('button').addEventListener('click', closeDialog)
+  document.body.append(dialog)
+  dialog.querySelector('button').focus()
+}
+
 function setupRsvpForm() {
   const form = document.querySelector('.rsvp-form')
   if (!form) return
@@ -175,6 +206,7 @@ function setupRsvpForm() {
 
       form.reset()
       form.elements.guestCount.value = '1'
+      showRsvpSuccess()
       setMessage('已收到您的回执，谢谢。')
     } catch (error) {
       console.error(error)
