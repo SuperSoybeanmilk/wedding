@@ -216,6 +216,38 @@ function setupPetals() {
   setPetalVisibility(weddingSwiper.activeIndex)
 }
 
+function setupPhotoBackdrops() {
+  document.querySelectorAll('.layout-02, .layout-03, .layout-04').forEach((slide) => {
+    slide.querySelector(':scope > .mobile-photo-backdrop')?.remove()
+
+    const pageContent = slide.querySelector(':scope > .content-grid, :scope > .gallery-layout')
+    if (!pageContent) return
+
+    const imageUrls = [
+      ...new Set(
+        [...pageContent.querySelectorAll('picture img')]
+          .map((image) => image.currentSrc)
+          .filter(Boolean),
+      ),
+    ]
+
+    if (!imageUrls.length) return
+
+    const backdrop = document.createElement('div')
+    backdrop.className = 'mobile-photo-backdrop'
+    if (imageUrls.length > 1) backdrop.classList.add('has-multiple')
+    backdrop.setAttribute('aria-hidden', 'true')
+
+    imageUrls.forEach((imageUrl) => {
+      const layer = document.createElement('span')
+      layer.style.backgroundImage = `url("${imageUrl}")`
+      backdrop.appendChild(layer)
+    })
+
+    slide.prepend(backdrop)
+  })
+}
+
 function setPetalVisibility(slideIndex) {
   document.querySelector('.petal-layer')?.classList.toggle('is-visible', slideIndex > 0)
 }
@@ -290,3 +322,9 @@ document.addEventListener(
 setupRsvpForm()
 setupPetals()
 setupLoader()
+
+if (document.readyState === 'complete') {
+  setupPhotoBackdrops()
+} else {
+  window.addEventListener('load', setupPhotoBackdrops, { once: true })
+}
