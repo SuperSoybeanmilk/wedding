@@ -168,6 +168,41 @@ function setupRsvpForm() {
   })
 }
 
+function setupPetals() {
+  const layer = document.querySelector('.petal-layer')
+  if (!layer || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
+
+  const petalCount = window.matchMedia('(max-width: 760px)').matches ? 12 : 20
+  const fragment = document.createDocumentFragment()
+
+  for (let index = 0; index < petalCount; index += 1) {
+    const petal = document.createElement('span')
+    const size = 8 + Math.random() * 8
+    const drift = -80 + Math.random() * 160
+
+    petal.className = 'petal'
+    petal.style.setProperty('--petal-left', `${Math.random() * 100}%`)
+    petal.style.setProperty('--petal-size', `${size}px`)
+    petal.style.setProperty('--petal-drift', `${drift}px`)
+    petal.style.setProperty('--petal-drift-end', `${drift * -0.35}px`)
+    const spin = 240 + Math.random() * 480
+    petal.style.setProperty('--petal-spin-mid', `${spin * 0.56}deg`)
+    petal.style.setProperty('--petal-spin', `${spin}deg`)
+    petal.style.setProperty('--petal-duration', `${10 + Math.random() * 9}s`)
+    petal.style.setProperty('--petal-delay', `${-Math.random() * 18}s`)
+    petal.style.setProperty('--petal-opacity', `${0.28 + Math.random() * 0.34}`)
+    petal.classList.add(index % 3 === 0 ? 'petal-white' : 'petal-blush')
+    fragment.appendChild(petal)
+  }
+
+  layer.appendChild(fragment)
+  setPetalVisibility(weddingSwiper.activeIndex)
+}
+
+function setPetalVisibility(slideIndex) {
+  document.querySelector('.petal-layer')?.classList.toggle('is-visible', slideIndex > 0)
+}
+
 const weddingSwiper = new Swiper('.wedding-swiper', {
   direction: 'vertical',
   modules: [EffectFade, Mousewheel, Pagination, Parallax],
@@ -189,9 +224,11 @@ const weddingSwiper = new Swiper('.wedding-swiper', {
   on: {
     init() {
       playTyping(0)
+      setPetalVisibility(0)
     },
     slideChange() {
       playTyping(this.activeIndex)
+      setPetalVisibility(this.activeIndex)
     },
   },
 })
@@ -202,3 +239,4 @@ document.querySelector('.scroll-hint')?.addEventListener('click', () => {
 
 setupMusicPlayer()
 setupRsvpForm()
+setupPetals()

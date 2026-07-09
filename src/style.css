@@ -41,6 +41,68 @@ img {
   overflow: hidden;
 }
 
+.petal-layer {
+  position: fixed;
+  z-index: 9;
+  inset: 0;
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 500ms ease;
+}
+
+.petal-layer.is-visible {
+  opacity: 1;
+}
+
+.petal {
+  position: absolute;
+  top: -12vh;
+  left: var(--petal-left);
+  width: var(--petal-size);
+  height: calc(var(--petal-size) * 1.45);
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 78% 18% 72% 24%;
+  box-shadow: 0 3px 8px rgba(110, 71, 80, 0.08);
+  opacity: 0;
+  transform-origin: 55% 45%;
+  animation: petal-fall var(--petal-duration) linear var(--petal-delay) infinite;
+  will-change: transform, opacity;
+}
+
+.petal-blush {
+  background: rgba(236, 173, 186, 0.76);
+}
+
+.petal-white {
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 3px 9px rgba(91, 71, 75, 0.12);
+}
+
+@keyframes petal-fall {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+  }
+
+  10% {
+    opacity: var(--petal-opacity);
+  }
+
+  52% {
+    transform: translate3d(var(--petal-drift), 54vh, 0) rotate(var(--petal-spin-mid));
+  }
+
+  88% {
+    opacity: var(--petal-opacity);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate3d(var(--petal-drift-end), 118vh, 0) rotate(var(--petal-spin));
+  }
+}
+
 .cover-bg,
 .slide-bg,
 .details-bg {
@@ -170,16 +232,18 @@ img {
 }
 
 .slide-bg {
-  background:
-    linear-gradient(90deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.66)),
-    url("/src/assets/background.jpg") center / cover;
-  filter: saturate(0.65) brightness(1.08);
+  background-image: url("/src/assets/background-polygon.png");
+  background-position: center;
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  filter: none;
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
 
 .light-bg {
-  background:
-    linear-gradient(270deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7)),
-    url("/src/assets/background.jpg") center / cover;
+  background-image: url("/src/assets/background-polygon.png");
 }
 
 .content-grid,
@@ -595,10 +659,14 @@ img {
 }
 
 .details-bg {
-  background:
-    linear-gradient(rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.88)),
-    url("/src/assets/background.jpg") center / cover;
-  filter: saturate(0.72) brightness(1.05);
+  background-image: url("/src/assets/background-polygon.png");
+  background-position: center;
+  background-repeat: repeat-x;
+  background-size: auto 100%;
+  filter: none;
+  opacity: 1;
+  transform: none;
+  transition: none;
 }
 
 .details-content {
@@ -610,12 +678,7 @@ img {
   align-items: center;
   justify-content: center;
   padding: 34px;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(255, 255, 255, 0.9) 0,
-    rgba(255, 255, 255, 0.7) 42%,
-    rgba(255, 255, 255, 0) 76%
-  );
+  background: none;
   text-align: center;
 }
 
@@ -947,6 +1010,12 @@ img {
     inset: -5vh -12vw;
   }
 
+  .slide-bg,
+  .details-bg {
+    background-repeat: repeat-y;
+    background-size: 100% auto;
+  }
+
   .cover-content {
     padding: 28px 24px;
   }
@@ -1156,12 +1225,7 @@ img {
 
   .details-content {
     padding: 24px 16px;
-    background: radial-gradient(
-      ellipse at center,
-      rgba(255, 255, 255, 0.92) 0,
-      rgba(255, 255, 255, 0.74) 58%,
-      rgba(255, 255, 255, 0) 100%
-    );
+    background: none;
   }
 
   .detail-list p {
@@ -1229,6 +1293,10 @@ img {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .petal-layer {
+    display: none;
+  }
+
   .cover-bg,
   .slide-bg,
   .details-bg,
