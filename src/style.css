@@ -526,13 +526,31 @@ img {
 
 .layout-03 .photo-stack img {
   object-position: 62% center;
+  transform: none;
+}
+
+.layout-03 .content-grid {
+  padding: clamp(34px, 5vh, 64px) clamp(42px, 6vw, 110px);
+}
+
+.layout-03 .photo-stack {
+  align-self: center;
+  justify-self: end;
+  width: min(66vw, 1180px);
+  height: min(84vh, 920px);
+}
+
+.layout-03 .photo-stack picture {
+  border: 10px solid #fff;
+  box-shadow: 0 30px 90px rgba(30, 30, 30, 0.2);
 }
 
 .layout-03 .copy-block {
   justify-self: start;
+  align-self: center;
   align-items: flex-start;
-  width: min(38vw, 560px);
-  padding-left: clamp(48px, 8vw, 130px);
+  width: min(32vw, 500px);
+  padding: clamp(34px, 5vw, 76px) 0;
   background: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0.94),
@@ -588,8 +606,8 @@ img {
 .layout-05 .photo-stack {
   align-self: center;
   justify-self: center;
-  width: min(84vw, 1380px);
-  height: min(78vh, 900px);
+  width: min(90vw, 1520px);
+  height: min(84vh, 980px);
 }
 
 .layout-05 .photo-stack picture {
@@ -1057,7 +1075,7 @@ img {
 .music-close {
   grid-column: 2;
   grid-row: 1 / span 2;
-  height: 136px;
+  height: 88px;
   padding: 0;
   border: 0;
   cursor: pointer;
@@ -1086,29 +1104,24 @@ img {
   font-size: 0.72rem;
 }
 
-.music-frame {
+.music-audio {
   grid-column: 1;
   display: block;
   width: 100%;
-  height: 118px;
+  height: 54px;
+  padding: 0 8px;
+  accent-color: #b87583;
   border: 0;
 }
 
-.music-frame[hidden] {
-  display: none;
-}
-
-.music-empty {
-  grid-column: 1;
-  margin: 0;
-  padding: 36px 14px;
-  color: var(--muted);
-  font-size: 0.82rem;
-  text-align: center;
-}
-
-.music-empty[hidden] {
-  display: none;
+.music-widget.is-playing .music-play-icon::before {
+  left: 7px;
+  top: 8px;
+  width: 8px;
+  height: 12px;
+  border: 0;
+  border-right: 3px solid rgba(35, 35, 35, 0.72);
+  border-left: 3px solid rgba(35, 35, 35, 0.72);
 }
 
 @keyframes music-panel-in {
@@ -1123,6 +1136,14 @@ img {
   .slide-bg,
   .details-bg {
     inset: -5vh -12vw;
+  }
+
+  .cover-bg {
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    background-position: center;
+    background-size: cover;
   }
 
   .slide-bg,
@@ -1185,6 +1206,22 @@ img {
     height: 100%;
   }
 
+  .layout-01 .photo-stack {
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .layout-01 .photo-stack picture,
+  .layout-01 .photo-stack img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .layout-01 .photo-stack img {
+    object-fit: cover;
+  }
+
   .story-slide .photo-stack picture {
     border: 0;
   }
@@ -1207,46 +1244,147 @@ img {
     );
   }
 
-  .layout-03 .photo-stack img {
-    object-position: 58% center;
-  }
-
-  .layout-03 .copy-block {
-    top: 0;
-    bottom: auto;
+  .layout-01 .copy-block {
+    right: auto;
+    width: 84vw;
+    min-height: 44vh;
     align-items: flex-start;
-    min-height: 38vh;
-    justify-content: flex-start;
-    padding: 6vh 24px 13vh;
+    padding: 17vh 12vw 6vh 7vw;
     background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0.94),
-      rgba(255, 255, 255, 0.72) 58%,
-      rgba(255, 255, 255, 0)
+      145deg,
+      rgba(255, 255, 255, 0),
+      rgba(255, 255, 255, 0.82) 52%,
+      rgba(255, 255, 255, 0.96)
     );
     text-align: left;
   }
 
+  .layout-03 .photo-stack img {
+    object-position: 58% center;
+    transform: none;
+  }
+
+  .layout-03 .photo-stack {
+    inset: 19vh 10vw auto;
+    width: 80vw;
+    height: 62vh;
+    aspect-ratio: auto;
+  }
+
+  .layout-03 .photo-stack picture {
+    border: 7px solid #fff;
+    box-shadow: 0 24px 58px rgba(30, 30, 30, 0.18);
+  }
+
+  .layout-03 .copy-block {
+    inset: 0;
+    display: block;
+    width: 100%;
+    min-height: 100%;
+    padding: 0;
+    text-align: left;
+  }
+
+  .layout-03::before,
+  .layout-05::before {
+    position: absolute;
+    z-index: 1;
+    inset: -18px;
+    background-position: center;
+    background-size: cover;
+    content: "";
+    filter: blur(8px) saturate(0.58);
+    opacity: 0.16;
+    transform: scale(1.04);
+  }
+
+  .layout-03::before {
+    background-image: url("/src/assets/2.png");
+  }
+
+  .layout-03 .copy-block .section-index {
+    position: absolute;
+    top: 12vh;
+    right: 8vw;
+  }
+
+  .layout-03 .copy-block h2 {
+    position: absolute;
+    top: 15vh;
+    right: 6vw;
+    margin: 0;
+    writing-mode: vertical-rl;
+  }
+
+  .layout-03 .copy-block p:not(.section-index) {
+    position: absolute;
+    bottom: 9vh;
+    left: 8vw;
+    width: 64vw;
+    margin: 0;
+    text-align: left;
+  }
+
   .layout-05 .content-grid {
-    padding: 3vh 14px;
+    padding: 0;
   }
 
   .layout-05 .photo-stack {
-    inset: 6vh 4vw auto;
-    width: 92vw;
-    height: 74vh;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+  }
+
+  .layout-05 .photo-stack picture {
+    border: 0;
+    box-shadow: none;
+  }
+
+  .layout-05 .photo-stack img {
+    object-position: center;
   }
 
   .layout-05 .copy-block {
-    right: 4vw;
-    bottom: 3vh;
-    left: 4vw;
-    width: 92vw;
-    min-height: 34vh;
-    align-items: center;
-    justify-content: flex-end;
-    padding: 14vh 18px 3vh;
-    text-align: center;
+    inset: 0;
+    display: block;
+    width: 100%;
+    min-height: 100%;
+    padding: 0;
+    background: none;
+    text-align: left;
+  }
+
+  .layout-05 .copy-block .section-index {
+    position: absolute;
+    top: 7vh;
+    left: 7vw;
+  }
+
+  .layout-05 .copy-block h2 {
+    position: absolute;
+    top: 9vh;
+    left: 7vw;
+    margin: 0;
+    padding: 12px 22vw 12px 0;
+    background: linear-gradient(90deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
+    text-align: left;
+    text-shadow: 0 2px 18px rgba(255, 255, 255, 0.9);
+  }
+
+  .layout-05 .copy-block p:not(.section-index) {
+    position: absolute;
+    right: 5vw;
+    bottom: 7vh;
+    width: 70vw;
+    margin: 0;
+    padding: 10vh 0 0 14vw;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.94) 64%);
+    text-align: right;
+  }
+
+  .layout-05::before {
+    display: none;
   }
 
   .copy-block h2,
@@ -1287,39 +1425,94 @@ img {
     );
   }
 
+  .layout-02 .gallery-layout {
+    position: relative;
+    display: block;
+    height: 100%;
+    padding: 0;
+  }
+
+  .layout-02 .photo-collage {
+    position: absolute;
+    top: 3vh;
+    right: 3vw;
+    width: 94vw;
+    height: 94vh;
+  }
+
+  .layout-02 .copy-block {
+    position: absolute;
+    top: 43vh;
+    bottom: auto;
+    left: 10vw;
+    width: 80vw;
+    min-height: 0;
+    margin: 0;
+    align-items: center;
+    padding: 0;
+    text-align: center;
+  }
+
   .layout-04 .photo-collage {
-    align-self: flex-start;
-    width: 92vw;
-    height: 64vh;
+    position: absolute;
+    top: 4vh;
+    left: 3vw;
+    width: 94vw;
+    height: 90vh;
   }
 
   .layout-04 .photo-main {
     right: auto;
     left: 0;
-    width: 72%;
+    width: 68%;
     height: 58vh;
+    aspect-ratio: auto;
   }
 
   .layout-04 .photo-side {
-    right: -2vw;
-    bottom: 3vh;
+    right: 2vw;
+    bottom: 2vh;
     left: auto;
-    width: 52%;
-    height: 26vh;
+    width: 90vw;
+    height: 25vh;
+    aspect-ratio: auto;
   }
 
   .layout-04 .copy-block {
-    align-self: flex-end;
-    width: 88vw;
-    margin-top: -12vh;
-    padding: 13vh 18px 3vh 22vw;
-    background: linear-gradient(
-      180deg,
-      rgba(255, 255, 255, 0),
-      rgba(255, 255, 255, 0.78) 42%,
-      rgba(255, 255, 255, 0.95)
-    );
+    position: absolute;
+    top: 7vh;
+    right: 2vw;
+    bottom: auto;
+    left: auto;
+    display: flex;
+    width: 25vw;
+    height: 52vh;
+    min-height: 0;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 10px;
+    margin: 0;
+    padding: 0;
     text-align: right;
+    writing-mode: vertical-rl;
+  }
+
+  .layout-04 .copy-block .section-index {
+    margin: 0;
+  }
+
+  .layout-04 .copy-block h2 {
+    margin: 0;
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .layout-04 .copy-block p:not(.section-index) {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.7;
+    text-align: left;
   }
 
   .photo-main {
@@ -1338,26 +1531,87 @@ img {
     border-width: 6px;
   }
 
+  .layout-02 .photo-main {
+    right: 0;
+    left: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .layout-02 .photo-side {
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+  }
+
+  .layout-04 .gallery-layout {
+    position: relative;
+    display: block;
+    height: 100%;
+    padding: 0;
+  }
+
   .details-content {
-    padding: 24px 16px;
+    padding: 12px 16px;
     background: none;
   }
 
+  .details-content .eyebrow {
+    font-size: 0.68rem;
+  }
+
+  .details-content h2 {
+    margin: 6px 0 8px;
+    font-size: 1.65rem;
+    line-height: 1.12;
+  }
+
+  .detail-list {
+    gap: 4px;
+    margin-top: 4px;
+  }
+
   .detail-list p {
-    padding: 14px 12px;
-    font-size: 0.96rem;
+    padding: 7px 10px;
+    font-size: 0.84rem;
+    line-height: 1.35;
   }
 
   .detail-list span {
-    display: block;
-    min-width: 0;
-    margin: 0 0 4px;
+    display: inline-block;
+    min-width: 46px;
+    margin: 0 8px 0 0;
   }
 
   .rsvp-form {
     width: min(400px, 100%);
-    margin-top: 16px;
-    padding: 14px;
+    gap: 7px;
+    margin-top: 8px;
+    padding: 10px;
+  }
+
+  .rsvp-form label {
+    gap: 3px;
+  }
+
+  .rsvp-form label span {
+    font-size: 0.7rem;
+  }
+
+  .rsvp-form input {
+    height: 34px;
+  }
+
+  .rsvp-form button {
+    height: 36px;
+  }
+
+  .rsvp-message {
+    min-height: 16px;
+    line-height: 1.3;
   }
 
   .swiper-pagination {
@@ -1398,13 +1652,43 @@ img {
   }
 
   .music-close {
-    height: 132px;
+    height: 88px;
   }
 
-  .music-frame {
-    height: 116px;
+  .music-audio {
+    height: 54px;
   }
 
+}
+
+.story-slide .copy-block,
+.gallery-slide .copy-block {
+  border: 0;
+  background: transparent !important;
+  box-shadow: none;
+  backdrop-filter: none;
+  font-weight: 600;
+  text-shadow:
+    -1px 0 0 rgba(255, 255, 255, 0.78),
+    1px 0 0 rgba(255, 255, 255, 0.68),
+    0 -1px 0 rgba(255, 255, 255, 0.7),
+    0 1px 0 rgba(255, 255, 255, 0.78),
+    -2px 1px 7px rgba(255, 255, 255, 0.7),
+    1px 2px 12px rgba(255, 255, 255, 0.9);
+}
+
+.story-slide .copy-block h2,
+.gallery-slide .copy-block h2 {
+  background: transparent !important;
+  font-weight: 700;
+  -webkit-text-stroke: 0.35px rgba(37, 37, 37, 0.42);
+}
+
+.story-slide .copy-block p:not(.section-index),
+.gallery-slide .copy-block p:not(.section-index) {
+  background: transparent !important;
+  font-weight: 600;
+  -webkit-text-stroke: 0.2px rgba(37, 37, 37, 0.32);
 }
 
 @media (prefers-reduced-motion: reduce) {

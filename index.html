@@ -50,7 +50,7 @@
           </button>
         </section>
 
-        <section class="swiper-slide story-slide">
+        <section class="swiper-slide story-slide layout-01">
           <div class="slide-bg"></div>
           <div class="content-grid">
             <figure class="photo-stack" data-swiper-parallax="-120">
@@ -68,7 +68,7 @@
           </div>
         </section>
 
-        <section class="swiper-slide gallery-slide">
+        <section class="swiper-slide gallery-slide layout-02">
           <div class="slide-bg light-bg"></div>
           <div class="gallery-layout">
             <article class="copy-block" data-swiper-parallax="-220">
@@ -180,12 +180,7 @@
 
     <div class="petal-layer" aria-hidden="true"></div>
 
-    <aside
-      class="music-widget"
-      data-provider="netease"
-      data-player-type="3"
-      data-media-id="2061866897"
-    >
+    <aside class="music-widget">
       <button class="music-toggle" type="button" aria-label="打开背景音乐" aria-expanded="false" aria-controls="music-panel">
         <span class="music-preview">
           <img src="/src/assets/1.jpg" alt="">
@@ -196,16 +191,10 @@
       <div class="music-panel" id="music-panel" hidden>
         <button class="music-close" type="button" aria-label="收起背景音乐"></button>
         <div class="music-panel-head">
-          <span>网易云节目</span>
-          <small>点击播放器开始播放</small>
+          <span>Till I Die</span>
+          <small>TheBluelee</small>
         </div>
-        <iframe
-          class="music-frame"
-          title="网易云音乐歌单播放器"
-          loading="eager"
-          allow="autoplay; encrypted-media"
-        ></iframe>
-        <p class="music-empty" hidden>请配置音乐外链</p>
+        <audio class="music-audio" controls autoplay loop preload="auto"></audio>
       </div>
     </aside>
 

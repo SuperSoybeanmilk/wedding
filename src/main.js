@@ -5,6 +5,7 @@ import 'swiper/css'
 import 'swiper/css/effect-fade'
 import 'swiper/css/pagination'
 import Typed from 'typed.js'
+import localMusicUrl from './assets/TheBluelee - Till I Die：[nZk] ver.mp3?url'
 
 const typedContent = [
   {
@@ -90,56 +91,42 @@ function playTyping(index) {
 
 function setupMusicPlayer() {
   const widget = document.querySelector('.music-widget')
-  if (!widget) return
+  if (!widget) return () => {}
 
   const toggle = widget.querySelector('.music-toggle')
   const close = widget.querySelector('.music-close')
   const panel = widget.querySelector('.music-panel')
-  const frame = widget.querySelector('.music-frame')
-  const empty = widget.querySelector('.music-empty')
-  const provider = widget.dataset.provider || 'netease'
-  const playerType = widget.dataset.playerType || '0'
-  const mediaId = widget.dataset.mediaId || widget.dataset.playlistId || '3778678'
-  const playlistId = widget.dataset.playlistId || '3778678'
-  const configuredSrc = widget.dataset.playerSrc || frame.dataset.src || frame.getAttribute('src') || ''
-  const playerSrc =
-    configuredSrc ||
-    (provider === 'qq'
-      ? ''
-      : `https://music.163.com/outchain/player?type=${encodeURIComponent(playerType)}&id=${encodeURIComponent(mediaId || playlistId)}&auto=1&height=90`)
-  let isLoaded = false
+  const audio = widget.querySelector('.music-audio')
 
-  function loadPlayer() {
-    if (isLoaded) return true
-
-    if (!playerSrc) {
-      if (empty) empty.hidden = false
-      frame.hidden = true
-      console.warn('音乐播放器缺少可用地址，请检查 data-player-src 或 data-playlist-id。')
-      return false
-    }
-
-    if (empty) empty.hidden = true
-    frame.hidden = false
-    frame.src = playerSrc
-    isLoaded = true
-    return true
-  }
+  audio.src = localMusicUrl
 
   function setOpen(isOpen) {
     widget.classList.toggle('is-open', isOpen)
     toggle.setAttribute('aria-expanded', String(isOpen))
     panel.hidden = !isOpen
+  }
 
-    if (isOpen) loadPlayer()
+  async function activatePlayback() {
+    if (!audio.paused) return
+
+    try {
+      await audio.play()
+    } catch {
+      // Browsers may still require a direct tap on the native controls.
+    }
   }
 
   toggle.addEventListener('click', () => {
     setOpen(!widget.classList.contains('is-open'))
+    activatePlayback()
   })
 
   close.addEventListener('click', () => setOpen(false))
-  loadPlayer()
+  audio.addEventListener('play', () => widget.classList.add('is-playing'))
+  audio.addEventListener('pause', () => widget.classList.remove('is-playing'))
+  activatePlayback()
+
+  return activatePlayback
 }
 
 function setupRsvpForm() {
@@ -263,11 +250,43 @@ const weddingSwiper = new Swiper('.wedding-swiper', {
   },
 })
 
+const activateMusicPlayback = setupMusicPlayer()
+
 document.querySelector('.scroll-hint')?.addEventListener('click', () => {
+  activateMusicPlayback()
   weddingSwiper.slideNext()
 })
 
-setupMusicPlayer()
+let touchStartY = null
+
+document.addEventListener(
+  'touchstart',
+  (event) => {
+    touchStartY = event.changedTouches[0]?.clientY ?? null
+  },
+  { passive: true },
+)
+
+document.addEventListener(
+  'touchend',
+  (event) => {
+    const touchEndY = event.changedTouches[0]?.clientY
+    if (touchStartY !== null && touchEndY !== undefined && touchStartY - touchEndY > 24) {
+      activateMusicPlayback()
+    }
+    touchStartY = null
+  },
+  { passive: true },
+)
+
+document.addEventListener(
+  'wheel',
+  (event) => {
+    if (event.deltaY > 0) activateMusicPlayback()
+  },
+  { passive: true },
+)
+
 setupRsvpForm()
 setupPetals()
 setupLoader()
