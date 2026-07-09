@@ -27,6 +27,121 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.site-loader {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  overflow: hidden;
+  background: #f5f2f2;
+  transition:
+    opacity 900ms ease,
+    visibility 900ms ease;
+}
+
+.loader-wash {
+  position: absolute;
+  inset: -24px;
+  background:
+    linear-gradient(rgba(255, 250, 251, 0.68), rgba(247, 242, 243, 0.76)),
+    url("/src/assets/5.jpg") center / cover;
+  filter: blur(10px) saturate(0.72);
+  transform: scale(1.06);
+  transition:
+    filter 950ms ease,
+    transform 1050ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.loader-spinner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 124px;
+  height: 124px;
+  color: #3d3638;
+  transform: translate(-50%, -50%);
+  transition:
+    opacity 260ms ease,
+    transform 420ms ease;
+}
+
+.loader-frame,
+.loader-core {
+  position: absolute;
+  inset: 12px;
+}
+
+.loader-frame {
+  border: 2px solid;
+}
+
+.loader-frame-a {
+  border-color: rgba(213, 139, 155, 0.72);
+  animation: loader-clockwise 2.4s ease-in-out infinite alternate;
+}
+
+.loader-frame-b {
+  inset: 22px;
+  border-color: rgba(79, 73, 75, 0.32);
+  transform: rotate(45deg);
+  animation: loader-counter-clockwise 2.4s ease-in-out infinite alternate;
+}
+
+.loader-core {
+  inset: 25px;
+  background: rgba(255, 255, 255, 0.86);
+}
+
+.loader-monogram,
+.loader-word {
+  position: absolute;
+  left: 50%;
+  z-index: 2;
+  white-space: nowrap;
+  transform: translateX(-50%);
+}
+
+.loader-monogram {
+  top: 47px;
+  font-size: 1rem;
+  letter-spacing: 0.16em;
+}
+
+.loader-word {
+  top: 132px;
+  color: #8f8587;
+  font-family: "Microsoft YaHei", Arial, sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+}
+
+.site-loader.is-loaded {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.site-loader.is-loaded .loader-wash {
+  filter: blur(0) saturate(0.82);
+  transform: scale(1);
+}
+
+.site-loader.is-loaded .loader-spinner {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.72);
+}
+
+@keyframes loader-clockwise {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loader-counter-clockwise {
+  to {
+    transform: rotate(-315deg);
+  }
+}
+
 img {
   display: block;
 }
@@ -1293,6 +1408,15 @@ img {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .site-loader,
+  .loader-wash {
+    transition-duration: 1ms;
+  }
+
+  .loader-frame {
+    animation: none;
+  }
+
   .petal-layer {
     display: none;
   }

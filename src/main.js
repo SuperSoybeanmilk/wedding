@@ -35,6 +35,36 @@ const typedContent = [
 
 let activeTyped = null
 
+function setupLoader() {
+  const loader = document.querySelector('#site-loader')
+  if (!loader) return
+
+  let finished = false
+  const startedAt = performance.now()
+
+  function hideLoader() {
+    if (finished) return
+    finished = true
+
+    const minimumVisibleTime = 650
+    const delay = Math.max(0, minimumVisibleTime - (performance.now() - startedAt))
+
+    window.setTimeout(() => {
+      loader.classList.add('is-loaded')
+      loader.setAttribute('aria-hidden', 'true')
+      window.setTimeout(() => loader.remove(), 1100)
+    }, delay)
+  }
+
+  if (document.readyState === 'complete') {
+    hideLoader()
+  } else {
+    window.addEventListener('load', hideLoader, { once: true })
+  }
+
+  window.setTimeout(hideLoader, 4500)
+}
+
 function playTyping(index) {
   if (activeTyped) {
     activeTyped.destroy()
@@ -240,3 +270,4 @@ document.querySelector('.scroll-hint')?.addEventListener('click', () => {
 setupMusicPlayer()
 setupRsvpForm()
 setupPetals()
+setupLoader()
