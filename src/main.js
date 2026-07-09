@@ -19,6 +19,18 @@ const typedContent = [
     selector: '#typed-gallery',
     strings: ['那些一起走过的路、看过的风景，都在今天变成了郑重的约定。'],
   },
+  {
+    selector: '#typed-knowing',
+    strings: ['从熟悉彼此的喜好，到读懂每一次沉默，我们在日常里慢慢靠近。'],
+  },
+  {
+    selector: '#typed-together',
+    strings: ['四季更迭，身边始终是你。平凡的日子，也因此有了值得珍藏的光。'],
+  },
+  {
+    selector: '#typed-moment',
+    strings: ['此刻，我们把所有相遇与陪伴写进誓言，也期待与你共同见证。'],
+  },
 ]
 
 let activeTyped = null
@@ -118,9 +130,10 @@ function setupRsvpForm() {
     const formData = new FormData(form)
     const name = String(formData.get('name') || '').trim()
     const phone = String(formData.get('phone') || '').trim()
+    const guestCount = Number(formData.get('guestCount'))
 
-    if (!name || !phone) {
-      setMessage('请填写姓名和电话。')
+    if (!name || !phone || !Number.isInteger(guestCount) || guestCount < 1 || guestCount > 20) {
+      setMessage('请填写姓名、电话和正确的出席人数。')
       return
     }
 
@@ -138,12 +151,13 @@ function setupRsvpForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, phone }),
+        body: JSON.stringify({ name, phone, guestCount }),
       })
 
       if (!response.ok) throw new Error(`HTTP ${response.status}`)
 
       form.reset()
+      form.elements.guestCount.value = '1'
       setMessage('已收到您的回执，谢谢。')
     } catch (error) {
       console.error(error)
@@ -154,7 +168,7 @@ function setupRsvpForm() {
   })
 }
 
-new Swiper('.wedding-swiper', {
+const weddingSwiper = new Swiper('.wedding-swiper', {
   direction: 'vertical',
   modules: [EffectFade, Mousewheel, Pagination, Parallax],
   effect: 'fade',
@@ -180,6 +194,10 @@ new Swiper('.wedding-swiper', {
       playTyping(this.activeIndex)
     },
   },
+})
+
+document.querySelector('.scroll-hint')?.addEventListener('click', () => {
+  weddingSwiper.slideNext()
 })
 
 setupMusicPlayer()

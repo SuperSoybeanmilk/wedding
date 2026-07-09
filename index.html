@@ -19,9 +19,9 @@
             </div>
             <p class="date">2026.10.01</p>
           </div>
-          <div class="scroll-hint" aria-hidden="true">
+          <button class="scroll-hint" type="button" aria-label="向下翻页">
             <span></span>
-          </div>
+          </button>
         </section>
 
         <section class="swiper-slide story-slide">
@@ -63,6 +63,63 @@
           </div>
         </section>
 
+        <section class="swiper-slide story-slide memory-slide layout-03">
+          <div class="slide-bg" data-swiper-parallax="-18%"></div>
+          <div class="content-grid">
+            <figure class="photo-stack" data-swiper-parallax="-120">
+              <picture>
+                <source media="(max-width: 760px)" srcset="/src/assets/2.png">
+                <img src="/src/assets/3.jpg" alt="我们的婚礼照片">
+              </picture>
+              <figcaption>Knowing You</figcaption>
+            </figure>
+            <article class="copy-block" data-swiper-parallax="-260">
+              <p class="section-index">03</p>
+              <h2>相知</h2>
+              <p id="typed-knowing"></p>
+            </article>
+          </div>
+        </section>
+
+        <section class="swiper-slide gallery-slide memory-slide layout-04">
+          <div class="slide-bg light-bg" data-swiper-parallax="-18%"></div>
+          <div class="gallery-layout">
+            <article class="copy-block" data-swiper-parallax="-220">
+              <p class="section-index">04</p>
+              <h2>相伴</h2>
+              <p id="typed-together"></p>
+            </article>
+            <div class="photo-collage" data-swiper-parallax="-120">
+              <picture class="photo-main">
+                <source media="(max-width: 760px)" srcset="/src/assets/4.png">
+                <img src="/src/assets/1.jpg" alt="我们的婚礼照片">
+              </picture>
+              <picture class="photo-side">
+                <source media="(max-width: 760px)" srcset="/src/assets/3.jpg">
+                <img src="/src/assets/2.png" alt="我们的婚礼照片">
+              </picture>
+            </div>
+          </div>
+        </section>
+
+        <section class="swiper-slide story-slide memory-slide layout-05">
+          <div class="slide-bg" data-swiper-parallax="-18%"></div>
+          <div class="content-grid">
+            <figure class="photo-stack" data-swiper-parallax="-120">
+              <picture>
+                <source media="(max-width: 760px)" srcset="/src/assets/5.jpg">
+                <img src="/src/assets/4.png" alt="我们的婚礼照片">
+              </picture>
+              <figcaption>Forever</figcaption>
+            </figure>
+            <article class="copy-block" data-swiper-parallax="-260">
+              <p class="section-index">05</p>
+              <h2>此刻</h2>
+              <p id="typed-moment"></p>
+            </article>
+          </div>
+        </section>
+
         <section class="swiper-slide details-slide">
           <div class="details-bg" data-swiper-parallax="-16%"></div>
           <div class="details-content" data-swiper-parallax="-220">
@@ -81,6 +138,10 @@
               <label>
                 <span>电话</span>
                 <input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="请输入联系电话" required>
+              </label>
+              <label>
+                <span>出席人数</span>
+                <input name="guestCount" type="number" inputmode="numeric" min="1" max="20" step="1" value="1" required>
               </label>
               <button type="submit">提交回执</button>
               <p class="rsvp-message" aria-live="polite"></p>
