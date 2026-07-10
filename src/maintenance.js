@@ -1,18 +1,18 @@
 import './maintenance.css'
 
-document.title = '吴建成个人网站 - 建设中'
+document.title = '吴建成学习笔记 - 建设中'
 
 document.body.className = 'maintenance-body'
 document.body.innerHTML = `
   <main class="maintenance-page" aria-labelledby="maintenance-title">
     <header class="maintenance-header">
       <span>WJC</span>
-      <span>Personal Website</span>
+      <span>Study Notes</span>
     </header>
 
     <section class="maintenance-hero">
       <p class="maintenance-kicker">Site Building</p>
-      <h1 id="maintenance-title">吴建成个人网站</h1>
+      <h1 id="maintenance-title">吴建成学习笔记</h1>
       <p class="maintenance-subtitle">网站正在建设中</p>
       <p class="maintenance-desc">内容整理与功能完善中，页面将于近期开放。</p>
     </section>
