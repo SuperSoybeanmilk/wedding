@@ -1,0 +1,147 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+.maintenance-body {
+  margin: 0;
+  min-height: 100vh;
+  color: #2c2a25;
+  font-family:
+    "Noto Serif SC",
+    "Songti SC",
+    "SimSun",
+    Georgia,
+    serif;
+  background:
+    linear-gradient(90deg, rgba(44, 42, 37, 0.05) 1px, transparent 1px),
+    linear-gradient(0deg, rgba(44, 42, 37, 0.04) 1px, transparent 1px),
+    url("./assets/background-polygon.png");
+  background-size:
+    88px 88px,
+    88px 88px,
+    cover;
+  background-position: center;
+}
+
+.maintenance-page {
+  position: relative;
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 42px 7vw 34px;
+}
+
+.maintenance-page::before {
+  position: absolute;
+  inset: 18px;
+  content: "";
+  border: 1px solid rgba(44, 42, 37, 0.16);
+  pointer-events: none;
+}
+
+.maintenance-page::after {
+  position: absolute;
+  top: 16%;
+  right: 8vw;
+  width: 28vw;
+  max-width: 380px;
+  height: 54vh;
+  content: "";
+  border: 1px solid rgba(44, 42, 37, 0.1);
+  background: rgba(255, 255, 255, 0.28);
+  transform: rotate(3deg);
+  pointer-events: none;
+}
+
+.maintenance-header,
+.maintenance-footer {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 24px;
+  color: rgba(44, 42, 37, 0.62);
+  font-family: Arial, "Microsoft YaHei", sans-serif;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.maintenance-hero {
+  position: relative;
+  z-index: 1;
+  align-self: center;
+  width: min(720px, 100%);
+  padding: 12vh 0;
+}
+
+.maintenance-kicker {
+  margin: 0 0 28px;
+  color: rgba(44, 42, 37, 0.58);
+  font-family: Arial, "Microsoft YaHei", sans-serif;
+  font-size: 13px;
+  text-transform: uppercase;
+}
+
+.maintenance-hero h1 {
+  margin: 0;
+  font-size: clamp(46px, 8vw, 104px);
+  line-height: 1.02;
+  font-weight: 800;
+  letter-spacing: 0;
+}
+
+.maintenance-subtitle {
+  margin: 30px 0 0;
+  font-size: clamp(25px, 4vw, 44px);
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.maintenance-desc {
+  max-width: 520px;
+  margin: 22px 0 0;
+  color: rgba(44, 42, 37, 0.68);
+  font-family: Arial, "Microsoft YaHei", sans-serif;
+  font-size: 16px;
+  line-height: 1.8;
+}
+
+@media (max-width: 720px) {
+  .maintenance-page {
+    padding: 30px 28px 28px;
+  }
+
+  .maintenance-page::before {
+    inset: 12px;
+  }
+
+  .maintenance-page::after {
+    top: 52%;
+    right: -18vw;
+    width: 72vw;
+    height: 32vh;
+  }
+
+  .maintenance-header,
+  .maintenance-footer {
+    font-size: 11px;
+  }
+
+  .maintenance-hero {
+    padding: 9vh 0;
+  }
+
+  .maintenance-kicker {
+    margin-bottom: 20px;
+  }
+
+  .maintenance-desc {
+    font-size: 14px;
+  }
+}
