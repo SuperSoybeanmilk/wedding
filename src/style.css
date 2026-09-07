@@ -245,7 +245,7 @@ img {
 }
 
 .cover-bg {
-  background-image: url("/src/assets/PC1.jpg");
+  background-image: url("/src/assets/PC1.webp");
   background-size: contain;
   filter: brightness(0.68) saturate(0.78);
 }
@@ -1280,7 +1280,7 @@ img {
     inset: 0;
     width: 100vw;
     height: 100vh;
-    background-image: url("/src/assets/M1.jpg");
+    background-image: url("/src/assets/M1.webp");
     background-position: center;
     background-size: contain;
   }
