@@ -6,6 +6,7 @@ import 'swiper/css/effect-fade'
 import 'swiper/css/pagination'
 import Typed from 'typed.js'
 import localMusicUrl from './assets/TheBluelee - Till I Die：[nZk] ver.mp3?url'
+import layoutConfig from './layout-config.js'
 
 const typedContent = [
   {
@@ -284,6 +285,109 @@ function setPetalVisibility(slideIndex) {
   document.querySelector('.petal-layer')?.classList.toggle('is-visible', slideIndex > 0)
 }
 
+const MOBILE_MEDIA_QUERY = '(max-width: 760px)'
+
+function isMobileViewport() {
+  return window.matchMedia(MOBILE_MEDIA_QUERY).matches
+}
+
+function currentVariant() {
+  return isMobileViewport() ? 'mobile' : 'desktop'
+}
+
+function applyPhotoStyles(el, state) {
+  if (el.matches('.cover-bg')) {
+    applyCoverStyles(el, state)
+    return
+  }
+
+  const img = el.querySelector('img')
+  if (!img) return
+  img.style.objectPosition = 'center center'
+  const dx = state.x - 50
+  const dy = state.y - 50
+  img.style.transform = `translate(${dx}%, ${dy}%) scale(${state.scale})`
+  img.style.transformOrigin = 'center center'
+}
+
+function clearPhotoStyles(el) {
+  if (el.matches('.cover-bg')) {
+    clearCoverStyles(el)
+    return
+  }
+
+  const img = el.querySelector('img')
+  if (!img) return
+  img.style.objectPosition = ''
+  img.style.transform = ''
+  img.style.transformOrigin = ''
+}
+
+function applyCoverStyles(el, state) {
+  el.style.backgroundPosition = `${state.x}% ${state.y}%`
+  el.style.backgroundSize = coverBackgroundSize(el, state.scale)
+}
+
+function clearCoverStyles(el) {
+  el.style.backgroundPosition = ''
+  el.style.backgroundSize = ''
+}
+
+function getCoverImageUrl() {
+  const cover = document.querySelector('.cover-bg')
+  if (!cover) return null
+  const backgroundImage = window.getComputedStyle(cover).backgroundImage
+  const match = backgroundImage.match(/url\(["']?(.+?)["']?\)/)
+  return match ? match[1] : null
+}
+
+const coverImageDimsByUrl = new Map()
+
+function loadCoverImageDims() {
+  const url = getCoverImageUrl()
+  if (!url || coverImageDimsByUrl.has(url)) return
+
+  const probe = new Image()
+  probe.onload = () => {
+    coverImageDimsByUrl.set(url, { width: probe.naturalWidth, height: probe.naturalHeight })
+    const cover = document.querySelector('.cover-bg[data-photo-id="cover"]')
+    const state = getVariantState('cover')
+    if (cover && state) applyCoverStyles(cover, state)
+  }
+  probe.src = url
+}
+
+function coverBackgroundSize(el, scale) {
+  const url = getCoverImageUrl()
+  const dims = url ? coverImageDimsByUrl.get(url) : null
+  if (!dims) return 'contain'
+
+  const width = el.offsetWidth
+  const height = el.offsetHeight
+  if (!width || !height) return 'contain'
+
+  const containScale = Math.min(width / dims.width, height / dims.height)
+  const backgroundWidth = dims.width * containScale * scale
+  const backgroundHeight = dims.height * containScale * scale
+  return `${backgroundWidth}px ${backgroundHeight}px`
+}
+
+function getVariantState(id) {
+  const variants = layoutConfig[id]
+  if (!variants) return null
+  return variants[currentVariant()] || null
+}
+
+function applySavedConfig() {
+  for (const id of Object.keys(layoutConfig)) {
+    const target = document.querySelector(`[data-photo-id="${id}"]`)
+    if (!target) continue
+    const state = getVariantState(id)
+    if (state) applyPhotoStyles(target, state)
+    else clearPhotoStyles(target)
+  }
+}
+
 const weddingSwiper = new Swiper('.wedding-swiper', {
   direction: 'vertical',
   modules: [EffectFade, Mousewheel, Pagination, Parallax],
@@ -354,6 +458,31 @@ document.addEventListener(
 setupRsvpForm()
 setupPetals()
 setupLoader()
+
+applySavedConfig()
+loadCoverImageDims()
+
+const mobileMedia = window.matchMedia(MOBILE_MEDIA_QUERY)
+mobileMedia.addEventListener('change', () => {
+  loadCoverImageDims()
+  applySavedConfig()
+})
+
+window.addEventListener('resize', () => {
+  const cover = document.querySelector('.cover-bg[data-photo-id="cover"]')
+  const state = getVariantState('cover')
+  if (cover && state) applyCoverStyles(cover, state)
+})
+
+if (import.meta.env.DEV) {
+  import('./editor.js').then(({ initPhotoEditor }) => {
+    initPhotoEditor({
+      getSavedConfig: () => layoutConfig,
+      applyPhoto: applyPhotoStyles,
+      clearPhoto: clearPhotoStyles,
+    })
+  })
+}
 
 if (document.readyState === 'complete') {
   setupPhotoBackdrops()
