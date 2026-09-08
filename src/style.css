@@ -1811,6 +1811,11 @@ img {
     text-align: left;
   }
 
+  .detail-list .venue-detail {
+    grid-template-columns: 48px minmax(0, 1fr);
+    align-items: start;
+  }
+
   .detail-list span {
     display: inline-block;
     min-width: 46px;
