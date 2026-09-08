@@ -153,7 +153,10 @@
             <h2>诚邀您见证我们的婚礼</h2>
             <div class="detail-list">
               <p><span>时间</span>2026 年 10 月 6 日 11:18</p>
-              <p><span>地点</span>金水湾花园酒店 四川省乐山市市中区棉竹镇金水湾路889号</p>
+              <p class="venue-detail">
+                <span>地点</span>
+                <a class="venue-address" href="https://uri.amap.com/search?keyword=%E5%9B%9B%E5%B7%9D%E7%9C%81%E4%B9%90%E5%B1%B1%E5%B8%82%20%E9%87%91%E6%B0%B4%E6%B9%BE.%E8%8A%B1%E5%9B%AD%E9%85%92%E5%BA%97" target="_blank" rel="noopener noreferrer" aria-label="打开高德地图导航到四川省乐山市金水湾.花园酒店">金水湾.花园酒店 四川省乐山市市中区棉竹镇金水湾路889号<span class="map-icon" aria-hidden="true">↗</span></a>
+              </p>
               <p><span>新人</span>吴建成 &amp; 卢晴</p>
             </div>
             <form class="rsvp-form" data-api-url="/submitRsvp" novalidate>
@@ -167,7 +170,7 @@
               </label>
               <label>
                 <span>出席人数</span>
-                <input name="guestCount" type="number" inputmode="numeric" min="1" max="20" step="1" value="1" required>
+                <input name="guestCount" type="number" inputmode="numeric" min="1" max="20" step="1">
               </label>
               <button type="submit">提交回执</button>
               <p class="rsvp-message" aria-live="polite"></p>

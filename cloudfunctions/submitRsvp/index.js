@@ -65,7 +65,8 @@ exports.main = async (event) => {
 
   const name = String(payload.name || '').trim()
   const phone = String(payload.phone || '').trim()
-  const guestCount = Number(payload.guestCount)
+  const guestCountValue = String(payload.guestCount ?? '').trim()
+  const guestCount = guestCountValue === '' ? 1 : Number(guestCountValue)
 
   if (!name || !phone || !Number.isInteger(guestCount) || guestCount < 1 || guestCount > 20) {
     return jsonResponse(400, { message: 'Name, phone and a valid guest count are required' })

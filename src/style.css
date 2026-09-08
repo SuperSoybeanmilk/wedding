@@ -876,6 +876,37 @@ img {
   font-size: 0.82rem;
 }
 
+.detail-list .venue-detail {
+  grid-template-columns: 68px minmax(0, 1fr);
+}
+
+.venue-detail .venue-address {
+  display: inline;
+  min-width: 0;
+  margin: 0;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: inherit;
+  line-height: 1.7;
+  text-decoration: none;
+}
+
+.venue-address .map-icon {
+  display: inline;
+  min-width: 0;
+  color: inherit;
+  font-family: Arial, sans-serif;
+  font-size: 0.82em;
+  margin-left: 5px;
+}
+
+.venue-address:hover,
+.venue-address:focus-visible {
+  color: #a45d6b;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
 .rsvp-form {
   display: grid;
   grid-column: 2;
