@@ -589,13 +589,19 @@ img {
   grid-row: 1;
   justify-self: stretch;
   width: auto;
+  z-index: 2;
   background: linear-gradient(
-    270deg,
+    90deg,
     rgba(255, 255, 255, 0.94),
     rgba(255, 255, 255, 0.7) 68%,
     rgba(255, 255, 255, 0)
   );
-  text-align: right;
+  text-align: left;
+}
+
+.layout-04 .copy-block p:not(.section-index) {
+  max-width: 24em;
+  text-align: left;
 }
 
 .layout-04 .photo-main {
@@ -1616,14 +1622,17 @@ img {
     bottom: auto;
     left: 5vw;
     width: 90vw;
-    height: 23vh;
-    min-height: 23vh;
+    height: fit-content;
+    min-height: 0;
     margin: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0;
+    gap: 8px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.85);
     text-align: center;
   }
 
@@ -1912,6 +1921,11 @@ img {
 }
 
 @media (min-width: 761px) {
+  .layout-04 .copy-block {
+    min-width: 0;
+    max-width: 100%;
+  }
+
   /* Keep the desktop faces clear of the text overlays. */
   .cover-bg {
     background-position: center 10%;
