@@ -149,8 +149,10 @@
         <section class="swiper-slide details-slide">
           <div class="details-bg"></div>
           <div class="details-content" data-swiper-parallax="-220">
-            <p class="eyebrow">Save The Date</p>
-            <h2>诚邀您见证我们的婚礼</h2>
+            <div class="details-info">
+              <p class="eyebrow">Save The Date</p>
+              <h2>诚邀您见证我们的婚礼</h2>
+            </div>
             <div class="detail-list">
               <p><span>时间</span>2026 年 10 月 6 日 11:18</p>
               <p class="venue-detail">
@@ -160,13 +162,14 @@
               <p><span>新人</span>吴建成 &amp; 卢晴</p>
             </div>
             <form class="rsvp-form" data-api-url="/submitRsvp" novalidate>
+              <div class="rsvp-heading">
+                <p class="rsvp-kicker">RSVP</p>
+                <h3>出席回执</h3>
+                <p>期待在这天与你相见</p>
+              </div>
               <label>
                 <span>姓名</span>
                 <input name="name" type="text" autocomplete="name" placeholder="请输入您的姓名" required>
-              </label>
-              <label>
-                <span>电话</span>
-                <input name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="请输入联系电话" required>
               </label>
               <label>
                 <span>出席人数</span>

@@ -178,12 +178,12 @@ function setupRsvpForm() {
 
     const formData = new FormData(form)
     const name = String(formData.get('name') || '').trim()
-    const phone = String(formData.get('phone') || '').trim()
+    const phone = '0'
     const guestCountValue = String(formData.get('guestCount') || '').trim()
     const guestCount = guestCountValue === '' ? 1 : Number(guestCountValue)
 
-    if (!name || !phone || !Number.isInteger(guestCount) || guestCount < 1 || guestCount > 20) {
-      setMessage('请填写姓名、电话和正确的出席人数。')
+    if (!name || !Number.isInteger(guestCount) || guestCount < 1 || guestCount > 20) {
+      setMessage('请填写姓名和正确的出席人数。')
       return
     }
 
